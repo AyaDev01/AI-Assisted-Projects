@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الاختبارات التفاعلية</title>
+    <link rel="stylesheet" href="style.lectures.css">
+    <link rel="icon" type="image/png" href="pngtree-graduation-cap.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #818cf8;
+        --secondary: #ec4899;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --dark: #1e293b;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --gray-700: #334155;
+        --gray-800: #1e293b;
+        --gray-900: #0f172a;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --radius-sm: 0.375rem;
+        --radius: 0.5rem;
+        --radius-md: 0.75rem;
+        --radius-lg: 1rem;
+        --radius-xl: 1.5rem;
+        --radius-2xl: 2rem;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Sans Arabic", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #0b1d6d 0%, #180927 100%);
+        min-height: 100vh;
+        color: var(--gray-800);
+        line-height: 1.7;
+        padding: 0;
+      }
+
+      /* Header */
+      .app-header {
+        background: rgba(255, 255, 255, 0.959);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--gray-200);
+        padding: 1rem 1.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .header-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 800;
+        font-size: 1.25rem;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: white;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--gray-100);
+        color: var(--gray-700);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        border: 1px solid var(--gray-200);
+      }
+
+      .back-btn:hover {
+        background: var(--gray-200);
+        transform: translateY(-1px);
+      }
+
+      /* Main Container */
+      .main-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+
+      /* Selector Card */
+      .selector-card {
+        background: white;
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--gray-100);
+      }
+
+      .selector-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .lecture-selector select {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        border-radius: var(--radius-lg);
+        border: 2px solid var(--gray-200);
+        cursor: pointer;
+        background: var(--gray-50);
+        font-family: inherit;
+        color: var(--gray-800);
+        transition: all 0.2s;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: left 1rem center;
+        background-size: 1.25rem;
+        padding-left: 3rem;
+      }
+
+      .lecture-selector select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        background-color: white;
+      }
+
+      .lecture-selector select:hover {
+        border-color: var(--gray-300);
+      }
+
+      /* Quiz Box */
+      .quiz-box {
+        background: white;
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-xl);
+        overflow: hidden;
+        border: 1px solid var(--gray-100);
+      }
+
+      .quiz-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quiz-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+      }
+
+      .quiz-header h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .quiz-header .subtitle {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        margin-top: 0.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Content Card */
+      .content-section {
+        padding: 2rem;
+      }
+
+      .content-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--gray-200);
+        transition: all 0.3s;
+      }
+
+      .content-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+
+      .content-card h2 {
+        color: var(--primary-dark);
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--primary-light);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .content-card h3 {
+        color: var(--gray-700);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 1.25rem 0 0.75rem;
+        padding-right: 1rem;
+        border-right: 3px solid var(--primary);
+      }
+
+      .box {
+        background: white;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        border-right: 3px solid var(--primary-light);
+        transition: all 0.2s;
+      }
+
+      .box:hover {
+        box-shadow: var(--shadow-md);
+        border-right-color: var(--primary);
+      }
+
+      .box h2, .box h3 {
+        text-align: right;
+        border: none;
+        margin: 0 0 0.75rem 0;
+        color: var(--gray-800);
+        border-right: none;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .box p, .box ul, .box ol {
+        line-height: 1.8;
+        color: var(--gray-600);
+        text-align: justify;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .box ul {
+        padding-right: 1.25rem;
+        list-style-type: none;
+      }
+
+      .box ul li {
+        position: relative;
+        padding-right: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .box ul li::before {
+        content: '•';
+        color: var(--primary);
+        font-weight: bold;
+        position: absolute;
+        right: 0;
+        font-size: 1.25rem;
+        line-height: 1.2;
+      }
+
+      .box ol {
+        padding-right: 1.25rem;
+        margin: 1rem 0;
+        list-style-type: decimal;
+      }
+
+      .box li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Exam Section */
+      .exam-section {
+        padding: 0 2rem 2rem;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--gray-800);
+        margin: 2rem 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--gray-200);
+      }
+
+      .section-title:first-child {
+        margin-top: 0;
+      }
+
+      /* Question Block */
+      .q-block {
+        background: white;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        transition: all 0.2s;
+      }
+
+      .q-block:hover {
+        box-shadow: var(--shadow-md);
+        border-color: var(--gray-300);
+      }
+
+      .q-text {
+        font-weight: 700;
+        color: var(--gray-800);
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .q-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        border-radius: 50%;
+        font-size: 0.875rem;
+        font-weight: 700;
+        margin-left: 0.75rem;
+        flex-shrink: 0;
+      }
+
+      .option-item {
+        border: 2px solid var(--gray-200);
+        padding: 0.875rem 1rem;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        background: var(--gray-50);
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .option-item:hover {
+        background: white;
+        border-color: var(--primary-light);
+        box-shadow: var(--shadow-sm);
+        transform: translateX(-4px);
+      }
+
+      .option-item input {
+        margin-left: 0.75rem;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary);
+      }
+
+      textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--radius-md);
+        resize: vertical;
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: all 0.2s;
+        background: var(--gray-50);
+        min-height: 120px;
+      }
+
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        background: white;
+      }
+
+      /* Model Answer */
+      .model-answer {
+        display: none;
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        padding: 1.25rem;
+        border-radius: var(--radius-md);
+        margin-top: 1rem;
+        border-right: 4px solid var(--success);
+        color: var(--gray-700);
+        font-size: 0.95rem;
+        line-height: 1.8;
+      }
+
+      .model-answer strong {
+        color: var(--success);
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* Buttons */
+      .btn-grade {
+        display: block;
+        width: 100%;
+        padding: 1rem 1.5rem;
+        margin-top: 2rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        border: none;
+        border-radius: var(--radius-lg);
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-grade::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .btn-grade:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .btn-grade:hover::after {
+        left: 100%;
+      }
+
+      .btn-grade:active {
+        transform: translateY(0);
+      }
+
+      /* Results */
+      .result-display {
+        display: none;
+        margin-top: 2rem;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .score-display {
+        padding: 2rem;
+        border-radius: var(--radius-xl);
+        font-size: 1.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        text-align: center;
+        box-shadow: var(--shadow-xl);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .score-display::before {
+        content: '🎉';
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 1rem;
+        animation: bounce 1s ease infinite;
+      }
+
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .score-display h2 {
+        font-size: 1.75rem;
+        margin: 0;
+      }
+
+      .score-display .score-number {
+        font-size: 3rem;
+        display: block;
+        margin: 0.5rem 0;
+      }
+
+      /* Correct/Wrong States */
+      .correct-bg {
+        background-color: #d1fae5 !important;
+        color: #065f46;
+        border-color: #6ee7b7 !important;
+        border-right: 3px solid var(--success) !important;
+      }
+
+      .wrong-bg {
+        background-color: #fee2e2 !important;
+        color: #991b1b;
+        border-color: #fca5a5 !important;
+        border-right: 3px solid var(--danger) !important;
+      }
+
+      .show-results .option-item input {
+        pointer-events: none;
+      }
+
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--gray-400);
+      }
+
+      .empty-state-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      .empty-state h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gray-500);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Retry Button */
+      .btn-retry {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        padding: 0.875rem 2rem;
+        background: white;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        border-radius: var(--radius-lg);
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.2s;
+        font-family: inherit;
+      }
+
+      .btn-retry:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .main-container {
+          padding: 1rem;
+        }
+
+        .quiz-header {
+          padding: 1.5rem;
+        }
+
+        .quiz-header h2 {
+          font-size: 1.35rem;
+        }
+
+        .content-section,
+        .exam-section {
+          padding: 1.25rem;
+        }
+
+        .selector-card {
+          padding: 1.25rem;
+        }
+
+        .header-content {
+          flex-wrap: wrap;
+        }
+
+        .logo {
+          font-size: 1.1rem;
+        }
+
+        .logo-icon {
+          width: 36px;
+          height: 36px;
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .quiz-header h2 {
+          font-size: 1.15rem;
+        }
+
+        .section-title {
+          font-size: 1.1rem;
+        }
+
+        .q-block {
+          padding: 1rem;
+        }
+
+        .option-item {
+          padding: 0.75rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  <base target="_blank">
+</head>
+  <body>
+    <header class="app-header">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🎓</div>
+          <span>منصة الاختبارات</span>
+        </a>
+        <a href="index.html" class="back-btn">
+          🏠 الرئيسية
+        </a>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <div class="selector-card">
+        <div class="selector-label">
+          📚 اختار المحاضرة
+        </div>
+        <div class="lecture-selector">
+          <select id="lectureSelect" onchange="loadLecture()">
+            <option value="">-- اختار من القائمة --</option>
+
+            <optgroup label="📘 الموارد البشرية">
+              <option value="hr_lec1">المحاضرة 1: المفاهيم والنشأة</option>
+              <option value="hr_sec1">سكشن 1</option>
+              <option value="hr_lec2">المحاضرة 2: بيئة متغيرة</option>
+              <option value="hr_sec2">سكشن 2</option>
+              <option value="hr_lec3">المحاضرة 3: تحليل الوظائف</option>
+              <option value="hr_sec3">سكشن 3</option>
+              <option value="hr_lec4">المحاضرة 4: تخطيط الموارد</option>
+              <option value="hr_sec4">سكشن 4</option>
+              <option value="hr_lec5">المحاضرة 5: الاستقطاب والتوظيف</option>
+              <option value="hr_sec5">سكشن 5</option>
+            </optgroup>
+
+            <optgroup label="📝 امتحانات سابقة">
+              <option value="hr_past1">امتحان سابق - Man413 (2025)</option>
+            </optgroup>
+
+            <optgroup label="📗 الشركات">
+              <option value="comp_lec1">المحاضرة :1</option>
+              <option value="comp_lec2">المحاضرة 2</option>
+              <option value="comp_lec3">المحاضرة 3</option>
+              <option value="comp_lec4">المحاضرة 4</option>
+              <option value="comp_lec5">المحاضرة 5</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <div id="quizContainer">
+        <div class="quiz-box">
+          <div class="empty-state">
+            <div class="empty-state-icon">👆</div>
+            <h2>اختار محاضرة من القائمة</h2>
+            <p>عشان تبدأ المذاكرة والاختبار</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+      let currentLecture = null;
+
+      function loadLecture() {
+        const key = document.getElementById("lectureSelect").value;
+        if (!key) {
+          document.getElementById("quizContainer").innerHTML = `
+            <div class="quiz-box">
+              <div class="empty-state">
+                <div class="empty-state-icon">👆</div>
+                <h2>اختار محاضرة من القائمة</h2>
+                <p>عشان تبدأ المذاكرة والاختبار</p>
+              </div>
+            </div>
+          `;
+          return;
+        }
+        currentLecture = lecturesData[key];
+        if (currentLecture) {
+          renderLecture();
+        } else {
+          document.getElementById("quizContainer").innerHTML = `
+            <div class="quiz-box">
+              <div class="empty-state">
+                <div class="empty-state-icon">⚠️</div>
+                <h2>المحاضرة غير متوفرة حالياً</h2>
+                <p>جرب محاضرة تانية</p>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      function renderLecture() {
+        const container = document.getElementById("quizContainer");
+        let html = `
+          <div class="quiz-box">
+            <div class="quiz-header">
+              <h2>${currentLecture.title || "بدون عنوان"}</h2>
+              <div class="subtitle">📖 محتوى المحاضرة + اختبار تفاعلي</div>
+            </div>
+
+            <div class="content-section">
+              <div class="content-card">
+                ${currentLecture.content || "لا يوجد محتوى متاح حالياً."}
+              </div>
+            </div>
+
+            <div class="exam-section">
+              <form id="quizForm">
+        `;
+
+        if (currentLecture.exam.trueFalse && currentLecture.exam.trueFalse.length > 0) {
+          html += `<div class="section-title">✅ صواب أم خطأ</div>`;
+          currentLecture.exam.trueFalse.forEach((item, i) => {
+            html += `
+              <div class="q-block">
+                <p class="q-text"><span class="q-number">${i + 1}</span> ${item.question}</p>
+                <label class="option-item">
+                  <input type="radio" name="t${i}" value="true" /> صح
+                </label>
+                <label class="option-item">
+                  <input type="radio" name="t${i}" value="false" /> خطأ
+                </label>
+              </div>
+            `;
+          });
+        }
+
+        if (currentLecture.exam.multipleChoice && currentLecture.exam.multipleChoice.length > 0) {
+          html += `<div class="section-title">📝 اختيار من متعدد</div>`;
+          const tfCount = currentLecture.exam.trueFalse ? currentLecture.exam.trueFalse.length : 0;
+          currentLecture.exam.multipleChoice.forEach((item, i) => {
+            const labels = ["أ", "ب", "ج", "د"];
+            html += `
+              <div class="q-block">
+                <p class="q-text"><span class="q-number">${tfCount + i + 1}</span> ${item.question}</p>
+            `;
+            item.options.forEach((opt, j) => {
+              html += `
+                <label class="option-item">
+                  <input type="radio" name="m${i}" value="${j}" /> 
+                  ${labels[j]}) ${opt}
+                </label>
+              `;
+            });
+            html += `</div>`;
+          });
+        }
+
+        if (currentLecture.exam.essay && currentLecture.exam.essay.length > 0) {
+          html += `<div class="section-title">✍️ أسئلة مقالية</div>`;
+          currentLecture.exam.essay.forEach((item, i) => {
+            html += `
+              <div class="q-block">
+                <p class="q-text"><span class="q-number">س${i + 1}</span> ${item.question}</p>
+                <textarea rows="5" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="model-answer" style="display:none;">
+                  <strong>الإجابة النموذجية:</strong> ${item.modelAnswer}
+                </div>
+              </div>
+            `;
+          });
+        }
+
+        html += `
+              </form>
+              <button type="button" class="btn-grade" onclick="grade()">تصحيح الامتحان 🎯</button>
+              <div id="res" class="result-display" style="display:none;"></div>
+            </div>
+          </div>
+        `;
+        container.innerHTML = html;
+      }
+
+      function grade() {
+        if (!currentLecture) return;
+        let score = 0;
+        let total = 0;
+        const form = document.getElementById("quizForm");
+        form.classList.add("show-results");
+
+        if (currentLecture.exam.trueFalse) {
+          currentLecture.exam.trueFalse.forEach((item, i) => {
+            const selected = document.querySelector(`input[name="t${i}"]:checked`);
+            const options = document.querySelectorAll(`input[name="t${i}"]`);
+            options.forEach((opt) => {
+              if (opt.value === String(item.answer))
+                opt.parentElement.classList.add("correct-bg");
+            });
+            if (selected && selected.value !== String(item.answer))
+              selected.parentElement.classList.add("wrong-bg");
+            if (selected && selected.value === String(item.answer)) score++;
+            total++;
+          });
+        }
+
+        if (currentLecture.exam.multipleChoice) {
+          currentLecture.exam.multipleChoice.forEach((item, i) => {
+            const selected = document.querySelector(`input[name="m${i}"]:checked`);
+            const options = document.querySelectorAll(`input[name="m${i}"]`);
+            options.forEach((opt) => {
+              if (parseInt(opt.value) === parseInt(item.correctIndex))
+                opt.parentElement.classList.add("correct-bg");
+            });
+            if (selected && parseInt(selected.value) !== parseInt(item.correctIndex))
+              selected.parentElement.classList.add("wrong-bg");
+            if (selected && parseInt(selected.value) === parseInt(item.correctIndex))
+              score++;
+            total++;
+          });
+        }
+
+        document.querySelectorAll(".model-answer").forEach((el) => (el.style.display = "block"));
+
+        const resBox = document.getElementById("res");
+        resBox.style.display = "block";
+
+        let message = "";
+        let percentage = total > 0 ? (score / total) * 100 : 0;
+
+        if (percentage >= 90) message = "ممتاز! 🌟";
+        else if (percentage >= 75) message = "جيد جداً! 👏";
+        else if (percentage >= 60) message = "جيد، كمل مذاكرة! 💪";
+        else message = "لازم تراجع أكتر! 📚";
+
+        resBox.innerHTML = `
+          <div class="score-display">
+            <div class="score-number">${score}/${total}</div>
+            <div style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 0.5rem;">${message}</div>
+            <div style="font-size: 0.9rem; opacity: 0.8;">${percentage.toFixed(0)}%</div>
+            <button class="btn-retry" onclick="renderLecture()">
+              🔄 إعادة المحاولة
+            </button>
+          </div>
+        `;
+        resBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    </script>
+  </body>
+</html>
