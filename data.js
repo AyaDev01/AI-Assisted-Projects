@@ -1,5 +1,4 @@
-// data.js - Fixed loader for lecture files
-
+// data.js - Auto-fixing version (نسخة كاملة ومعدلة)
 const lecturesIndex = {
   hr: {
     name: "📚 إدارة الموارد البشرية",
@@ -34,9 +33,8 @@ const lecturesIndex = {
     }
   }
 };
-// Dynamic loader function
+
 async function loadLecture(lectureKey) {
-  // Find the file path
   let filePath = null;
   for (const subjectKey in lecturesIndex) {
     const subject = lecturesIndex[subjectKey];
@@ -57,50 +55,65 @@ async function loadLecture(lectureKey) {
       throw new Error(`Failed to load ${filePath}: ${response.status}`);
     }
 
-    // For JSON files
-    if (filePath.endsWith('.json')) {
-      return await response.json();
-    } 
-    // For JS files
-    else {
-      const jsText = await response.text();
-      // Create a function that returns the lectureData
+    let jsText = await response.text();
+    
+    // 1. إزالة الـ BOM إذا وجد
+    if (jsText.charCodeAt(0) === 0xFEFF) {
+      jsText = jsText.slice(1);
+    }
+    
+    // 2. إصلاح القوس المزدوج {{ إلى {
+    jsText = jsText.replace(/{\s*{/g, '{');
+    jsText = jsText.replace(/}\s*}/g, '}');
+    
+    // 3. إزالة الفواصل الزائدة قبل الأقفال
+    jsText = jsText.replace(/,(\s*[}\]])/g, '$1');
+    
+    // 4. تنفيذ الكود بأمان
+    let result = null;
+    try {
       const fn = new Function(jsText + '; return lectureData;');
-      const result = fn();
-      
-      // Handle cases where the file had double braces
-      if (result && typeof result === 'object') {
-        // Check if it's wrapped in an extra layer
-        if (result.lectureData !== undefined) {
-          return result.lectureData;
+      result = fn();
+    } catch(e) {
+      console.warn("First parse failed, trying fallback:", e);
+      // محاولة بديلة باستخدام eval
+      const cleanText = jsText.replace(/export\s+default\s+/, '');
+      const match = cleanText.match(/(?:const\s+lectureData\s*=\s*)(\{[\s\S]*\})/);
+      if (match) {
+        try {
+          result = eval('(' + match[1] + ')');
+        } catch(e2) {
+          console.error("Eval fallback also failed:", e2);
+          return null;
         }
-        // Check if it has a numeric key (0) - sometimes happens with bad exports
-        if (result[0] !== undefined && result[0].title) {
-          return result[0];
-        }
-        return result;
       }
+    }
+    
+    // التعامل مع النتائج المختلفة
+    if (result && typeof result === 'object') {
+      if (result.lectureData) return result.lectureData;
+      if (result[0] && result[0].title) return result[0];
+      if (result.title) return result;
+      if (result.default) return result.default;
       return result;
     }
-
+    return result;
+    
   } catch (error) {
     console.error(`Error loading lecture ${lectureKey}:`, error);
     return null;
   }
 }
 
-// Get all available lectures for a subject
 function getSubjectLectures(subjectKey) {
   const subject = lecturesIndex[subjectKey];
   if (!subject) return [];
-
   return Object.entries(subject.lectures).map(([key, data]) => ({
     key,
     title: data.title
   }));
 }
 
-// Get all subjects
 function getAllSubjects() {
   return Object.entries(lecturesIndex).map(([key, data]) => ({
     key,
