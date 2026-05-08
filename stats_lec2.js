@@ -1,5 +1,6 @@
 // stats_lec2.js
 const lectureData = {
+  
   title: "📊 المحاضرة 2: المتغيرات العشوائية المنفصلة والتوزيعات الاحتمالية",
   content: `
     <style>
