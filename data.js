@@ -30,6 +30,7 @@ const lecturesIndex = {
     name: "📊 مبادئ الإحصاء",
     lectures: {
       stats_lec1: { title: "📊 المحاضرة 1: مقدمة في الاحتمالات", file: "stats_lec1.js" },
+      stats_lec2: { title: "📊 المحاضرة 2: المتغيرات العشوائية المنفصلة والتوزيعات الاحتمالية", file: "lectures/stats_lec2.js" },
     }
   }
 };
