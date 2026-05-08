@@ -1,45 +1,39 @@
 // data.js - Fixed loader for lecture files
 
 const lecturesIndex = {
-  // HR - Human Resources
   hr: {
     name: "📚 إدارة الموارد البشرية",
     lectures: {
-      hr_lec1: { title: "📖 المحاضرة 1: المفاهيم والنشأة", file: "lectures/hr_lec1.js" },
-      hr_lec2: { title: "المحاضرة الثانية: الإدارة الاستراتيجية للموارد البشرية والبيئة المتغيرة", file: "lectures/hr_lec2.js" },
-      hr_lec3: { title: "المحاضرة الثالثة: تحليل وتوصيف الوظائف", file: "lectures/hr_lec3.js" },
-      hr_lec4: { title: "المحاضرة الرابعة: تخطيط الموارد البشرية", file: "lectures/hr_lec4.js" },
-      hr_lec5: { title: "المحاضرة الخامسة: الاستقطاب والتوظيف", file: "lectures/hr_lec5.js" },
-      hr_sec1: { title: "سكشن 1 - تاريخ إدارة الموارد البشرية", file: "lectures/hr_sec1.js" },
-      hr_sec2: { title: "سكشن 2 - بيئة متغيرة والتحديات الحديثة", file: "lectures/hr_sec2.js" },
-      hr_sec3: { title: "سكشن 3 - تحليل الوظائف والخرائط التنظيمية", file: "lectures/hr_sec3.js" },
-      hr_sec4: { title: "سكشن 4 - تخطيط الموارد البشرية", file: "lectures/hr_sec4.js" },
-      hr_sec5: { title: "السكشن 5: الاستقطاب والتوظيف", file: "lectures/hr_sec5.js" },
-      hr_past1: { title: "📋 نموذج امتحان 2025 - إدارة الموارد البشرية", file: "lectures/hr_past1.js" },
+      hr_lec1: { title: "📖 المحاضرة 1: المفاهيم والنشأة", file: "hr_lec1.js" },
+      hr_lec2: { title: "المحاضرة الثانية: الإدارة الاستراتيجية للموارد البشرية والبيئة المتغيرة", file: "hr_lec2.js" },
+      hr_lec3: { title: "المحاضرة الثالثة: تحليل وتوصيف الوظائف", file: "hr_lec3.js" },
+      hr_lec4: { title: "المحاضرة الرابعة: تخطيط الموارد البشرية", file: "hr_lec4.js" },
+      hr_lec5: { title: "المحاضرة الخامسة: الاستقطاب والتوظيف", file: "hr_lec5.js" },
+      hr_sec1: { title: "سكشن 1 - تاريخ إدارة الموارد البشرية", file: "hr_sec1.js" },
+      hr_sec2: { title: "سكشن 2 - بيئة متغيرة والتحديات الحديثة", file: "hr_sec2.js" },
+      hr_sec3: { title: "سكشن 3 - تحليل الوظائف والخرائط التنظيمية", file: "hr_sec3.js" },
+      hr_sec4: { title: "سكشن 4 - تخطيط الموارد البشرية", file: "hr_sec4.js" },
+      hr_sec5: { title: "السكشن 5: الاستقطاب والتوظيف", file: "hr_sec5.js" },
+      hr_past1: { title: "📋 نموذج امتحان 2025 - إدارة الموارد البشرية", file: "hr_past1.js" },
     }
   },
-
-  // Companies Law
   comp: {
     name: "⚖️ قانون الشركات",
     lectures: {
-      comp_lec1: { title: "المحاضرة الأولى والثانية: تطور الشركات واستراتيجيات النمو", file: "lectures/comp_lec1.js" },
-      comp_lec2: { title: "المحاضرة الثالثة: آليات وأهداف حوكمة الشركات", file: "lectures/comp_lec2.js" },
-      comp_lec3: { title: "المحاضرة الرابعة: كيفية تقييم الشركات من خلال تقرير الحوكمة", file: "lectures/comp_lec3.js" },
-      comp_lec4: { title: "المحاضرة الخامسة: دور المعلومات المحاسبية في قياس الأداء", file: "lectures/comp_lec4.js" },
-      comp_lec5: { title: "المحاضرة السادسة: قائمة الدخل الشامل والقوائم المالية", file: "lectures/comp_lec5.js" },
+      comp_lec1: { title: "المحاضرة الأولى والثانية: تطور الشركات واستراتيجيات النمو", file: "comp_lec1.js" },
+      comp_lec2: { title: "المحاضرة الثالثة: آليات وأهداف حوكمة الشركات", file: "comp_lec2.js" },
+      comp_lec3: { title: "المحاضرة الرابعة: كيفية تقييم الشركات من خلال تقرير الحوكمة", file: "comp_lec3.js" },
+      comp_lec4: { title: "المحاضرة الخامسة: دور المعلومات المحاسبية في قياس الأداء", file: "comp_lec4.js" },
+      comp_lec5: { title: "المحاضرة السادسة: قائمة الدخل الشامل والقوائم المالية", file: "comp_lec5.js" },
     }
   },
-
-  // Statistics
   stats: {
     name: "📊 مبادئ الإحصاء",
     lectures: {
-      stats_lec1: { title: "📊 المحاضرة 1: مقدمة في الاحتمالات", file: "lectures/stats_lec1.js" },
+      stats_lec1: { title: "📊 المحاضرة 1: مقدمة في الاحتمالات", file: "stats_lec1.js" },
     }
   }
 };
-
 // Dynamic loader function
 async function loadLecture(lectureKey) {
   // Find the file path
