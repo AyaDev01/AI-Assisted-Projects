@@ -1,5 +1,7 @@
-// data.js - Auto-fixing version (نسخة كاملة ومعدلة)
+// data.js - Fixed loader for lecture files
+
 const lecturesIndex = {
+  // HR - Human Resources
   hr: {
     name: "📚 إدارة الموارد البشرية",
     lectures: {
@@ -16,8 +18,10 @@ const lecturesIndex = {
       hr_past1: { title: "📋 نموذج امتحان 2025 - إدارة الموارد البشرية", file: "hr_past1.js" },
     }
   },
+
+  // Companies Law
   comp: {
-    name: "⚖️تحليل وتقيم الشركات",
+    name: "⚖️ قانون الشركات",
     lectures: {
       comp_lec1: { title: "المحاضرة الأولى والثانية: تطور الشركات واستراتيجيات النمو", file: "comp_lec1.js" },
       comp_lec2: { title: "المحاضرة الثالثة: آليات وأهداف حوكمة الشركات", file: "comp_lec2.js" },
@@ -26,6 +30,8 @@ const lecturesIndex = {
       comp_lec5: { title: "المحاضرة السادسة: قائمة الدخل الشامل والقوائم المالية", file: "comp_lec5.js" },
     }
   },
+
+  // Statistics
   stats: {
     name: "📊 مبادئ الإحصاء",
     lectures: {
@@ -35,7 +41,9 @@ const lecturesIndex = {
   }
 };
 
+// Dynamic loader function
 async function loadLecture(lectureKey) {
+  // Find the file path
   let filePath = null;
   for (const subjectKey in lecturesIndex) {
     const subject = lecturesIndex[subjectKey];
@@ -56,65 +64,72 @@ async function loadLecture(lectureKey) {
       throw new Error(`Failed to load ${filePath}: ${response.status}`);
     }
 
-    let jsText = await response.text();
-    
-    // 1. إزالة الـ BOM إذا وجد
-    if (jsText.charCodeAt(0) === 0xFEFF) {
-      jsText = jsText.slice(1);
-    }
-    
-    // 2. إصلاح القوس المزدوج {{ إلى {
-    jsText = jsText.replace(/{\s*{/g, '{');
-    jsText = jsText.replace(/}\s*}/g, '}');
-    
-    // 3. إزالة الفواصل الزائدة قبل الأقفال
-    jsText = jsText.replace(/,(\s*[}\]])/g, '$1');
-    
-    // 4. تنفيذ الكود بأمان
-    let result = null;
-    try {
-      const fn = new Function(jsText + '; return lectureData;');
-      result = fn();
-    } catch(e) {
-      console.warn("First parse failed, trying fallback:", e);
-      // محاولة بديلة باستخدام eval
-      const cleanText = jsText.replace(/export\s+default\s+/, '');
-      const match = cleanText.match(/(?:const\s+lectureData\s*=\s*)(\{[\s\S]*\})/);
+    // For JSON files
+    if (filePath.endsWith('.json')) {
+      return await response.json();
+    } 
+    // For JS files - use script tag injection for proper parsing
+    else {
+      const jsText = await response.text();
+      
+      // Method 1: Try to extract and parse the object literal directly
+      // Look for: const lectureData = { ...anything... };
+      const match = jsText.match(/const\s+lectureData\s*=\s*([\s\S]*?);?\s*$/);
       if (match) {
         try {
-          result = eval('(' + match[1] + ')');
-        } catch(e2) {
-          console.error("Eval fallback also failed:", e2);
-          return null;
+          const objText = match[1].trim();
+          // Remove trailing semicolon if present
+          const cleanObj = objText.replace(/;\s*$/, '');
+          return new Function('return ' + cleanObj)();
+        } catch (e) {
+          console.warn('Direct parse failed, trying script tag method:', e.message);
         }
       }
+      
+      // Method 2: Inject as script tag (most reliable for complex objects with HTML)
+      return new Promise((resolve, reject) => {
+        // Clean up any previous lectureData
+        delete window.lectureData;
+        
+        const script = document.createElement('script');
+        script.textContent = jsText;
+        
+        // Use a small timeout to let script execute
+        setTimeout(() => {
+          if (window.lectureData) {
+            const data = window.lectureData;
+            delete window.lectureData; // Clean up
+            resolve(data);
+          } else {
+            reject(new Error('lectureData not found after script execution'));
+          }
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }, 0);
+        
+        document.head.appendChild(script);
+      });
     }
-    
-    // التعامل مع النتائج المختلفة
-    if (result && typeof result === 'object') {
-      if (result.lectureData) return result.lectureData;
-      if (result[0] && result[0].title) return result[0];
-      if (result.title) return result;
-      if (result.default) return result.default;
-      return result;
-    }
-    return result;
-    
+
   } catch (error) {
     console.error(`Error loading lecture ${lectureKey}:`, error);
     return null;
   }
 }
 
+// Get all available lectures for a subject
 function getSubjectLectures(subjectKey) {
   const subject = lecturesIndex[subjectKey];
   if (!subject) return [];
+
   return Object.entries(subject.lectures).map(([key, data]) => ({
     key,
     title: data.title
   }));
 }
 
+// Get all subjects
 function getAllSubjects() {
   return Object.entries(lecturesIndex).map(([key, data]) => ({
     key,
