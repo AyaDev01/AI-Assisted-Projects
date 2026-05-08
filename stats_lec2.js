@@ -53,7 +53,7 @@ const lectureData = {
       }
     ]
   }
-};
+}
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = lectureData;
