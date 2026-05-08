@@ -17,7 +17,7 @@ const lecturesIndex = {
     }
   },
   comp: {
-    name: "⚖️ قانون الشركات",
+    name: "⚖️تحليل وتقيم الشركات",
     lectures: {
       comp_lec1: { title: "المحاضرة الأولى والثانية: تطور الشركات واستراتيجيات النمو", file: "comp_lec1.js" },
       comp_lec2: { title: "المحاضرة الثالثة: آليات وأهداف حوكمة الشركات", file: "comp_lec2.js" },
