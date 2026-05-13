@@ -15,7 +15,7 @@ const lecturesIndex = {
       hr_sec3: { title: "سكشن 3 - تحليل الوظائف والخرائط التنظيمية", file: "hr_sec3.js" },
       hr_sec4: { title: "سكشن 4 - تخطيط الموارد البشرية", file: "hr_sec4.js" },
       hr_sec5: { title: "السكشن 5: الاستقطاب والتوظيف", file: "hr_sec5.js" },
-      hr_past1: { title: "📋 نموذج امتحان 2025 - إدارة الموارد البشرية", file: "hr_past1.js" },
+     
     }
   },
 
