@@ -5,7 +5,7 @@ const lectureData = {
     content: `
         <div class="box">
             <p>📌 هذه هي ملفات PDF و DOCX الخاصة بمحاضرات مادة إدارة الموارد البشرية.</p>
-         
+            
         </div>
     `,
     sources: [  // لازم يكون اسم المصفوفة "sources" مش "files"
